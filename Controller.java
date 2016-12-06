@@ -2,6 +2,8 @@ package Yatzy;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by bartek on 28/10/16.
@@ -15,6 +17,11 @@ public class Controller {
         Model model = new Model(view, playerGUI);
         model.setNumberOfPlayers();
         model.fillPlayerList(model.getNumberOfPlayers());
+        /*
+        ArrayList<Player> playerList = model.getPlayerList();
+        System.out.println(Arrays.toString(playerList.toArray()));
+        Test to see if arrayList playerList is filled
+        */
         System.out.println("Numbers of players: "+model.getNumberOfPlayers());
         DiceListener diceListener = new DiceListener(view, model);
         ScoreListener scoreListener = new ScoreListener(view, model);
@@ -98,5 +105,6 @@ public class Controller {
 
     public static void main(String[] arg) {
         Controller controller = new Controller();
+        
     }
 }

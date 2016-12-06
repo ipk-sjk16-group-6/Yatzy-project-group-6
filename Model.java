@@ -12,6 +12,7 @@ public class Model {
     View view;
     PlayerGUI playerGUI;
     private int numberOfPlayers;
+    private ArrayList<Player> playerList = new ArrayList<>(numberOfPlayers);
 
     public Model(View view, PlayerGUI playerGUI) {
 
@@ -64,7 +65,7 @@ public class Model {
     }
 
     public void fillPlayerList(int numberOfPlayers) {
-        ArrayList<Player> playerList = new ArrayList<>(numberOfPlayers);
+        //ArrayList<Player> playerList = new ArrayList<>(numberOfPlayers);
         for (int i = 0; i < numberOfPlayers; i++) {
             Player p;
             p = new Player();
@@ -77,6 +78,11 @@ public class Model {
             System.out.println("Player " + playerNumber++ + ": " + p);
         }
     }
+    
+    public ArrayList<Player> getPlayerList() {
+        return playerList;
+    }
+    
 
     public void showValueDiceButton() {
         // Show value if button is enabled
