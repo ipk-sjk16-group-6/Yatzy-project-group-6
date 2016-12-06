@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
- * Created by bartek on 28/10/16. Modified by Max on 1/12/16
+ * Created by bartek on 28/10/16. 
+ * Modified by Max on 1/12/16
  */
 public class Model {
 
@@ -21,6 +22,10 @@ public class Model {
 
     }
 
+    /**
+     * Prompts the user to input how many will play the game. Keeps asking until
+     * a valid number 1-6 is entered
+     */
     public void setNumberOfPlayers() {
         String message = "Enter number of players: 1-6";
         int choice;
@@ -60,12 +65,24 @@ public class Model {
         }
     }
 
+    /**
+     * getter for int numberOfPlayers
+     *
+     * @return Specified number of players set in setNumberOfPlayers()
+     * @see #setNumberOfPlayers() 
+     */
     public int getNumberOfPlayers() {
         return numberOfPlayers;
     }
 
+    /**
+     * Method that creates a list of players depending on number of players
+     * specified
+     *
+     * @param numberOfPlayers  The number specified in setNumberOfPlayers()
+     * @see #setNumberOfPlayers() 
+     */
     public void fillPlayerList(int numberOfPlayers) {
-        //ArrayList<Player> playerList = new ArrayList<>(numberOfPlayers);
         for (int i = 0; i < numberOfPlayers; i++) {
             Player p;
             p = new Player();
@@ -78,11 +95,17 @@ public class Model {
             System.out.println("Player " + playerNumber++ + ": " + p);
         }
     }
-    
+
+    /**
+     * Method for returning the playerList for use
+     *
+     * @return ArrayList playerList containing the number of players created
+     * in fillPlayerList()
+     * @see #fillPlayerList(int) 
+     */
     public ArrayList<Player> getPlayerList() {
         return playerList;
     }
-    
 
     public void showValueDiceButton() {
         // Show value if button is enabled
