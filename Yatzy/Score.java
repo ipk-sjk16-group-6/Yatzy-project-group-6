@@ -11,21 +11,21 @@ public class Score {
 
     Player currentPlayer;
 
-    boolean isOne;
-    boolean isTwo;
-    boolean isThree;
-    boolean isFour;
-    boolean isFive;
-    boolean isSix;
-    boolean isOnePair;
-    boolean isTwoPair;
-    boolean isThreeOfAKind;
-    boolean isFourOfAKind;
-    boolean isSmallStraight;
-    boolean isLargeStraight;
-    boolean isFullHouse;
-    boolean isChance;
-    boolean isYatzy;
+    private boolean isOne;
+    private boolean isTwo;
+    private boolean isThree;
+    private boolean isFour;
+    private boolean isFive;
+    private boolean isSix;
+    private boolean isOnePair;
+    private boolean isTwoPair;
+    private boolean isThreeOfAKind;
+    private boolean isFourOfAKind;
+    private boolean isSmallStraight;
+    private boolean isLargeStraight;
+    private boolean isFullHouse;
+    private boolean isChance;
+    private boolean isYatzy;
 
     public Score(Player currentPlayer) {
 

@@ -222,7 +222,7 @@ public class View {
         scoreButtons[11].setText("Large Straight");
         scoreButtons[12].setText("Full House");
         scoreButtons[13].setText("Chance");
-        scoreButtons[14].setText("Yazty");
+        scoreButtons[14].setText("Yatzy");
     }
 
     public void createBoxes(int numberOfPlayers, ArrayList<Player> playerlist) {
