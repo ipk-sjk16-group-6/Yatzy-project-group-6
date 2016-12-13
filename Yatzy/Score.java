@@ -4,7 +4,8 @@ import java.util.Collections;
 import java.util.Vector;
 
 /**
- * Created by bartek on 10/12/16.
+ * Class handling score-keeping
+ * @author Bartek
  */
 public class Score {
 
