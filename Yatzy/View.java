@@ -249,7 +249,7 @@ public class View {
             JLabel l0;
             JLabel l1;
             for (int i = 0; i < boxes.length; i++) {
-                l0 = new JLabel("  #" + i);
+                l0 = new JLabel(Values.tellItLikeItIs(i));
                 l1 = new JLabel();
                 //l0.setBorder(new MatteBorder(2, 2, 2, 2, Color.BLACK));
                 //l1.setBorder(new MatteBorder(0, 1, 1, 1, Color.BLACK));
