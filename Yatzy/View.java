@@ -15,7 +15,7 @@ import java.util.ArrayList;
  *
  * Creates and morphs JFrames, JPanels and JButtons
  *
- * @author Bartek
+ * @author Bartek, Max, Marcus, Anneli
  */
 public class View {
 
@@ -33,31 +33,30 @@ public class View {
     JLabel boxes[][][];
     JLabel numbersTotalBoxes[][][];
     JLabel pokerTotalBoxes[][][];
-    JPanel south,north,east,west,center,centerE,centerW,centerS,centerWB,centerWT,one,centerEN,centerEast;
-    JPanel centerEC; 
-    GridBagConstraints gc= new GridBagConstraints(); 
+    JPanel south, north, east, west, center, centerE, centerW, centerS, centerWB, centerWT, one, centerEN, centerEast;
+    JPanel centerEC;
+    GridBagConstraints gc = new GridBagConstraints();
 
-    public View()
-    {
+    public View() {
         createWindow();
         createDiceButtons();
         createScoreButtons();
         createNewGameButton();
         createExitButton();
-        
+
     }
 
-    public void createWindow(){
+    public void createWindow() {
         // Create JFrame (container window)
         mainFrame = new JFrame("Yahtzee");
-        
-			try {
-				mainFrame.setIconImage(ImageIO.read(getClass().getResource("/images/dice.png")));
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		
+
+        try {
+            mainFrame.setIconImage(ImageIO.read(getClass().getResource("/images/dice.png")));
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
         mainFrame.setSize(800, 995);
         mainFrame.setLayout(new BorderLayout());
 
@@ -74,71 +73,63 @@ public class View {
         east = new JPanel();
         west = new JPanel();
         center = new JPanel();
-        centerS= new JPanel(); 
+        centerS = new JPanel();
         centerW = new JPanel();
         centerE = new JPanel();
-        centerWB= new JPanel();
-        centerWT= new JPanel(); 
-        centerEN= new JPanel(); 
-        centerEast= new JPanel(); 
-        centerEC= new JPanel();
+        centerWB = new JPanel();
+        centerWT = new JPanel();
+        centerEN = new JPanel();
+        centerEast = new JPanel();
+        centerEC = new JPanel();
 
+        controlPanel.setLayout(new BoxLayout(north, BoxLayout.LINE_AXIS));
+        controlPanel.setPreferredSize(new Dimension(150, 150));
+        controlPanel.setBackground(new Color(40, 40, 40));
 
-        controlPanel.setLayout(new BoxLayout(north,BoxLayout.LINE_AXIS));
-        controlPanel.setPreferredSize(new Dimension(150,150));
-        controlPanel.setBackground(new Color(40,40,40));
+        south.setLayout(new FlowLayout(FlowLayout.CENTER, 100, 30));
+        south.setPreferredSize(new Dimension(200, 120));
+        south.setBackground(new Color(40, 40, 40));
 
-        south.setLayout(new FlowLayout(FlowLayout.CENTER,100,30));
-        south.setPreferredSize(new Dimension(200,120));
-        south.setBackground(new Color(40,40,40));
+        east.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        east.setPreferredSize(new Dimension(0, 0));
+        east.setBackground(new Color(20, 20, 20));
 
-        east.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
-        east.setPreferredSize(new Dimension(0,0));
-        east.setBackground(new Color(20,20,20));
-
-        west.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
-        west.setPreferredSize(new Dimension(0,0));
-        west.setBackground(new Color(47,46,46));
+        west.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        west.setPreferredSize(new Dimension(0, 0));
+        west.setBackground(new Color(47, 46, 46));
 
         center.setLayout(new BorderLayout());
-        center.setBackground(new Color(255,255,255));
-        
-        centerS.setLayout(new GridLayout(5,1));
-        centerS.setBackground(new Color(0,0,0));
+        center.setBackground(new Color(255, 255, 255));
+
+        centerS.setLayout(new GridLayout(5, 1));
+        centerS.setBackground(new Color(0, 0, 0));
 
         centerW.setLayout(new GridBagLayout());
-        
-        
-        
-        
-        gc.gridx=0;
-        gc.gridy=-1; 
-        
-        
-        
-        gc.weighty=50; 
 
-      
-        		
-        centerW.setBackground(new Color(40,40,40));
-        
-        centerWB.setLayout(new GridLayout(2,1));
-        centerWB.setBackground(new Color(0,0,0));
+        gc.gridx = 0;
+        gc.gridy = -1;
+
+        gc.weighty = 50;
+
+        centerW.setBackground(new Color(40, 40, 40));
+
+        centerWB.setLayout(new GridLayout(2, 1));
+        centerWB.setBackground(new Color(0, 0, 0));
         //centerWB.setPreferredSize(new Dimension(200,300));
-        
-        centerWT.setLayout(new GridLayout(15,1));
-        centerWT.setBackground(new Color(47,46,47));
-        
-        centerEN.setLayout(new GridLayout(1,6));
+
+        centerWT.setLayout(new GridLayout(15, 1));
+        centerWT.setBackground(new Color(47, 46, 47));
+
+        centerEN.setLayout(new GridLayout(1, 6));
         centerEN.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-        centerEN.setBackground(new Color(0,0,0));
-        
-        centerEC.setLayout(new GridLayout(1,6));
+        centerEN.setBackground(new Color(0, 0, 0));
+
+        centerEC.setLayout(new GridLayout(1, 6));
         centerEC.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-        centerEC.setBackground(new Color(0,0,0));
-        
+        centerEC.setBackground(new Color(0, 0, 0));
+
         centerEast.setLayout(new BorderLayout());
-        centerEast.setBackground(new Color(0,0,0));
+        centerEast.setBackground(new Color(0, 0, 0));
 
         controlPanel.setLayout(new FlowLayout());
         //Create JLabel
@@ -156,31 +147,28 @@ public class View {
 
         // Create button and add to JPanel
         rollButton = new JButton("Roll Dice");
-        Button.actionButton(rollButton,new Color(255,0,0), new Color(255,255,255));
+        Button.actionButton(rollButton, new Color(255, 0, 0), new Color(255, 255, 255));
         south.add(rollButton);
 
         zeroButton = new JButton("Zero");
-        Button.actionButton(zeroButton,new Color(188,188,188),new Color(0,0,0));
+        Button.actionButton(zeroButton, new Color(188, 188, 188), new Color(0, 0, 0));
         south.add(zeroButton);
 
-
         // Add JPanel and JLabels to JFrame
-        mainFrame.add(controlPanel,BorderLayout.NORTH);
-        mainFrame.add(south,BorderLayout.SOUTH);
-        mainFrame.add(center,BorderLayout.CENTER);
-        mainFrame.add(east,BorderLayout.EAST);
-        mainFrame.add(west,BorderLayout.WEST);
+        mainFrame.add(controlPanel, BorderLayout.NORTH);
+        mainFrame.add(south, BorderLayout.SOUTH);
+        mainFrame.add(center, BorderLayout.CENTER);
+        mainFrame.add(east, BorderLayout.EAST);
+        mainFrame.add(west, BorderLayout.WEST);
         center.add(centerW, BorderLayout.WEST);
-        center.add(centerEast,BorderLayout.CENTER);
-        centerEast.add(centerEN,BorderLayout.NORTH);
-        centerEast.add(centerEC,BorderLayout.CENTER);
-        
-       
-        
-        centerW.add(centerWT,gc); 
-        gc.anchor= GridBagConstraints.SOUTH;
-        centerW.add(centerWB,gc);
-      
+        center.add(centerEast, BorderLayout.CENTER);
+        centerEast.add(centerEN, BorderLayout.NORTH);
+        centerEast.add(centerEC, BorderLayout.CENTER);
+
+        centerW.add(centerWT, gc);
+        gc.anchor = GridBagConstraints.SOUTH;
+        centerW.add(centerWB, gc);
+
         //mainFrame.add(headerLabel);
         //mainFrame.add(statusLabel);
         //mainFrame.add(label);
@@ -189,7 +177,7 @@ public class View {
 
     }
 
-    public void createDiceButtons(){
+    public void createDiceButtons() {
         diceButtons = new JButton[5];
 
         //mainFrame.add(new JPanel());	// blank - for formatting
@@ -201,8 +189,10 @@ public class View {
         }
 
     }
+
     //mainFrame.add(new JPanel());	// blank - for formatting
-    public void createScoreButtons(){
+
+    public void createScoreButtons() {
         //Create scoreButtons and scoreBoxes
         scoreButtons = new JButton[15];
 
@@ -210,15 +200,13 @@ public class View {
             scoreButtons[i] = new JButton();
             //scoreButtons[i].setPreferredSize(new Dimension(200,40));
             scoreButtons[i].setFont(new Font("Tahoma", Font.PLAIN, 20));
-            scoreButtons[i].setBackground(new Color(0,204,0));
+            scoreButtons[i].setBackground(new Color(0, 204, 0));
             scoreButtons[i].putClientProperty("id", i);
             scoreButtons[i].getModel().setEnabled(false);
-            
+
             centerWT.add(scoreButtons[i]);
         }
-        
-        
-        
+
         // Set names for scoreButtons
         scoreButtons[0].setText("Ones");
         scoreButtons[1].setText("Twos");
@@ -236,7 +224,7 @@ public class View {
         scoreButtons[13].setText("Chance");
         scoreButtons[14].setText("Yazty");
     }
-    
+
     public void createBoxes(int numberOfPlayers, ArrayList<Player> playerlist) {
         // Create boxes
         boxes = new JLabel[15][2][numberOfPlayers];
@@ -250,15 +238,14 @@ public class View {
 
         for (int j = 0; j < numberOfPlayers; j++) {
             one = new JPanel();
-            one.setLayout(new GridLayout(21,1));
-            one.setBackground(new Color(80+((j*10)),80+(j*10),80+(j*10)));
-            
+            one.setLayout(new GridLayout(21, 1));
+            one.setBackground(new Color(80 + ((j * 10)), 80 + (j * 10), 80 + (j * 10)));
+
             String name = playerlist.get(j).getPlayerName();
             Label namelabel = new Label(name);
             namelabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
             centerEN.add(namelabel);
-            
-         
+
             JLabel l0;
             JLabel l1;
             for (int i = 0; i < boxes.length; i++) {
@@ -273,10 +260,7 @@ public class View {
             }
             JLabel l2;
             JLabel l3;
-            
-      
-            
-            
+
             for (int i = 0; i < numbersTotalBoxes.length; i++) {
                 l2 = new JLabel();
                 l3 = new JLabel();
@@ -307,66 +291,58 @@ public class View {
             pokerTotalBoxes[0][0][j].setText("Poker Score");
             pokerTotalBoxes[1][0][j].setText("Grand Total");
 
-            
-            centerEC.add(one,j);
+            centerEC.add(one, j);
 
         }
     }
 
-    public void createNewGameButton(){
+    public void createNewGameButton() {
 
         //create exit button
         newGameButton = new JButton("New Game");
         newGameButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        Button.actionButton(newGameButton,new Color(30,30,30),new Color(200,200,200));
+        Button.actionButton(newGameButton, new Color(30, 30, 30), new Color(200, 200, 200));
         centerWB.add(newGameButton);
 
     }
 
-
-    public void createExitButton(){
+    public void createExitButton() {
 
         //create exit button
         exitButton = new JButton("  Exit game  ");
         exitButton.setFont(new Font("Tahoma", Font.PLAIN, 21));
-        Button.actionButton(exitButton,new Color(30,30,30),new Color(200,200,200));
+        Button.actionButton(exitButton, new Color(30, 30, 30), new Color(200, 200, 200));
         centerWB.add(exitButton);
-        
+
     }
 
-    
     public void setImage() {
 
-        for (int i = 0;i<5;i++){
+        for (int i = 0; i < 5; i++) {
 
-
-            if(diceButtons[i].getModel().isSelected()==false)
-            {
+            if (diceButtons[i].getModel().isSelected() == false) {
                 setImageToOriginal(diceButtons[i]);
-            }
-            else if(diceButtons[i].getModel().isSelected()==true)
-            {
+            } else if (diceButtons[i].getModel().isSelected() == true) {
                 setImageToClicked(diceButtons[i]);
             }
 
         }
     }
 
-
     public void setImageToClicked(JButton diceButtons) {
-        try{
+        try {
 
-            String number=diceButtons.getText();
-            Image img = ImageIO.read(getClass().getResource("/images/dice-"+number+"-clicked"+".png"));
+            String number = diceButtons.getText();
+            Image img = ImageIO.read(getClass().getResource("/images/dice-" + number + "-clicked" + ".png"));
             diceButtons.setIcon(new ImageIcon(img));
         } catch (IOException ex) {
         }
     }
 
     public void setImageToOriginal(JButton diceButtons) {
-        try{
-            String number=diceButtons.getText();
-            Image img = ImageIO.read(getClass().getResource("/images/dice-"+number+".png"));
+        try {
+            String number = diceButtons.getText();
+            Image img = ImageIO.read(getClass().getResource("/images/dice-" + number + ".png"));
             diceButtons.setIcon(new ImageIcon(img));
         } catch (IOException ex) {
         }

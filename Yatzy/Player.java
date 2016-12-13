@@ -3,11 +3,15 @@ package Yatzy;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 
+/**
+ * Class that handles creation and management of players
+ *
+ * @author max
+ *
+ */
 public class Player {
 
-    /** Max variabel **/
-     private String playerName;
-    /***/
+    private String playerName;
 
     Dice[] dices;
     Vector savedValuesDiceCast;
@@ -44,6 +48,10 @@ public class Player {
     int pokerScore;
     int grandTotal;
 
+    /**
+     * Constructor for Player
+     * Gives player variables used in score-keeping
+     */
     public Player() {
 
         currentRoll = 0;
@@ -54,7 +62,7 @@ public class Player {
         pokerHands = new int[15];
         savedPokerHands = new int[15];
 
-        for(int i = 0; i < savedPokerHands.length; i++) {
+        for (int i = 0; i < savedPokerHands.length; i++) {
             savedPokerHands[i] = 100;
         }
 
@@ -62,6 +70,7 @@ public class Player {
 
     /**
      * Method to return the name of the player
+     *
      * @return The playername specified in setPlayerName()
      * @see #setPlayerName()
      */
@@ -80,25 +89,28 @@ public class Player {
             message = "<html><b style='color:red'>Enter playername:</b><br>"
                     + "Use a-z";
             if (playerName == null) {
-                        int confirmExit = JOptionPane.showConfirmDialog(null,
-                                "Are you sure you want to exit?", null,
-                                JOptionPane.YES_NO_OPTION);
-                        if (confirmExit == JOptionPane.YES_OPTION) {
-                            System.exit(0);
-                        }
-                    }
+                int confirmExit = JOptionPane.showConfirmDialog(null,
+                        "Are you sure you want to exit?", null,
+                        JOptionPane.YES_NO_OPTION);
+                if (confirmExit == JOptionPane.YES_OPTION) {
+                    System.exit(0);
+                }
+            }
         } while (playerName != null && !playerName.matches("[a-zA-Z]+"));
     }
 
     /**
      * Method for printing out a playerName
+     *
      * @return A string with the player name.
      */
     public String toString() {
         return playerName;
     }
 
-    // Used in MVC
+    /**
+     * Method used to create dice to be used
+     */
     void createDices() {
         // Create dices and add to array
         dices = new Dice[5];
@@ -108,14 +120,14 @@ public class Player {
         }
     }
 
-    // Used in MVC
+    /**
+     * Method used to throw dice
+     */
     void castDices() {
         for (int i = 0; i < dices.length; i++) {
-            // Kasta täring (returnerar "kastatvärde")
-            if(dices[i].castValue != 0) {
-                int värde = dices[i].kastaTärning();
-                // Skriv ut värdet
-                System.out.println(värde);
+            if (dices[i].castValue != 0) {
+                int diceValue = dices[i].throwDice();
+                System.out.println(diceValue);
             }
         }
         System.out.println("----------------");

@@ -6,7 +6,9 @@ import javax.swing.*;
 import java.util.*;
 
 /**
- * Created by bartek on 28/10/16.
+ * Class to control the elements of the program
+ * 
+ * @author Bartek, Max
  */
 public class Controller {
 
@@ -15,6 +17,10 @@ public class Controller {
     DiceListener diceListener;
     ScoreListener scoreListener;
 
+    /**
+     * Constructor for controller.
+     * Adds all elements to the controller and sets properties
+     */
     public Controller() {
         View view = new View();
         this.view = view;
@@ -77,6 +83,9 @@ public class Controller {
     }
 
 
+    /**
+     * Method to add an ActionListener to dice
+     */
     public static class DiceListener implements ActionListener {
 
          View view;
@@ -99,6 +108,9 @@ public class Controller {
         }
     }
 
+    /**
+     * Method to add an ActionListener for score-keeping
+     */
     public class ScoreListener implements ActionListener {
 
         View view;
