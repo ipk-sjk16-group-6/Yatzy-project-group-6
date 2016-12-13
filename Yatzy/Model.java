@@ -35,8 +35,8 @@ public class Model {
     }
 
     /**
-     * Method for creating a new game. 
-     * Used in the beginning and if new game is clicked.
+     * Method for creating a new game. Used in the beginning and if new game is
+     * clicked.
      */
     public void newGame() {
         emptyPlayerList();
@@ -55,8 +55,9 @@ public class Model {
     }
 
     /**
-     * Method used to set a new turn when every player has made
-     * enough dice throws
+     * Method used to set a new turn when every player has made enough dice
+     * throws
+     *
      * @return Used to keep track of turns
      */
     public int newTurn() {
@@ -70,6 +71,7 @@ public class Model {
 
     /**
      * Method used to set the current player
+     *
      * @param i used to determine which player is current
      */
     public void setPlayer(int i) {
@@ -98,10 +100,18 @@ public class Model {
                 + " it's your turn", "Who's up?", JOptionPane.PLAIN_MESSAGE);
     }
 
+    /**
+     * Method that empties ScoreTables
+     */
     public void removePlayerScoreTables() {
         view.centerE.removeAll();
+        view.centerEC.removeAll();
+        view.centerEN.removeAll();
     }
 
+    /**
+     * Method that determines if the dice is active
+     */
     public void showValueDiceButtons() {
         // Show value if button is enabled
         if (currentPlayer.currentRoll == 0) {
@@ -121,10 +131,18 @@ public class Model {
         }
     }
 
+    /**
+     * Method that shows the value of the dice
+     *
+     * @param i used to determine current dice used
+     */
     public void showDiceValue(int i) {
         view.getLabel().setText(String.valueOf(currentPlayer.dices[i].castValue));
     }
 
+    /**
+     * Method that enables Dice for use
+     */
     public void enableDiceButtons() {
         for (int i = 0; i < 5; i++) {
             view.diceButtons[i].getModel().setEnabled(true);
@@ -132,6 +150,9 @@ public class Model {
         }
     }
 
+    /**
+     * Method that saves marked dice to an array
+     */
     public void copyMarkedArrayToList() {
         if (currentPlayer.markedDices != null) {
             for (int i = 0; i < currentPlayer.markedDicesArray.length; i++) {
@@ -142,6 +163,9 @@ public class Model {
         }
     }
 
+    /**
+     * Method that adds value to dice
+     */
     public void addDiceValues() {
         if (currentPlayer.dices.length > 0) {
             for (int i = 0; i < currentPlayer.dices.length; i++) {
@@ -157,20 +181,32 @@ public class Model {
         }
     }
 
+    /**
+     * Method that emtpies dice values for future use
+     */
     public void emptySavedValuesDiceCast() {
         currentPlayer.savedValuesDiceCast.removeAllElements();
     }
 
+    /**
+     * Method that unmarks dice
+     */
     public void emptyMarkedDices() {
         currentPlayer.markedDices.removeAllElements();
     }
 
+    /**
+     * Method that empties saved marked dice
+     */
     public void emptyMarkedDicesArray() {
         for (int i = 0; i < currentPlayer.markedDicesArray.length; i++) {
             currentPlayer.markedDicesArray[i] = 0;
         }
     }
 
+    /**
+     * Method that empties temporary saved scores
+     */
     public void emptyPokerHands() {
         for (int i = 0; i < currentPlayer.pokerHands.length; i++) {
             currentPlayer.pokerHands[i] = 0;
@@ -191,6 +227,9 @@ public class Model {
         currentPlayer.yatzy = 0;
     }
 
+    /**
+     * Method that resets highlighted score buttons
+     */
     public void resetScoreButtons() {
         for (int i = 0; i < view.scoreButtons.length; i++) {
             view.scoreButtons[i].getModel().setEnabled(false);
@@ -239,6 +278,11 @@ public class Model {
         }
     }
 
+    /**
+     * Method that's used to check if poker scores are available
+     *
+     * @return true if pokerScore is available
+     */
     public boolean pokerHandsToBeMade() {
         // Check if player still has poker hands to make
         currentPlayer.pokerHandsToBeMade = false;
@@ -251,6 +295,11 @@ public class Model {
         return currentPlayer.pokerHandsToBeMade;
     }
 
+    /**
+     * Method that checks if there are any scores left to be set
+     *
+     * @return true if there are more scores to be made
+     */
     // Check if made hands are available to save (= slots for hands are empty)
     public boolean madeHandsAvailableForSave() {
         currentPlayer.madeHandsAvailableForSave = false;
@@ -263,6 +312,9 @@ public class Model {
         return currentPlayer.madeHandsAvailableForSave;
     }
 
+    /**
+     * Method used if you want to set a score to zero
+     */
     public void setHandsAvailableForZero() {
         toggleOkButton();
         toggleZeroButton();
@@ -282,6 +334,13 @@ public class Model {
         }
     }
 
+    /**
+     * Method that checks if a pokerScore is available
+     *
+     * @param m Uses value from IsPoker()
+     * @return true if pokerScore is available
+     * @see isPoker()
+     */
     public boolean isAvailablePokerHand(int m) {
         currentPlayer.isAvailablePokerHand = false;
         if (currentPlayer.savedPokerHands[m] == 100) {
@@ -290,6 +349,9 @@ public class Model {
         return currentPlayer.isAvailablePokerHand;
     }
 
+    /**
+     * Method used to toggle roll button
+     */
     public void toggleOkButton() {
         if (view.rollButton.getModel().isEnabled()) {
             view.rollButton.setEnabled(false);
@@ -298,6 +360,9 @@ public class Model {
         }
     }
 
+    /**
+     * Method used to toggle zero button
+     */
     public void toggleZeroButton() {
         if (view.zeroButton.getModel().isEnabled()) {
             view.zeroButton.setEnabled(false);
@@ -306,6 +371,9 @@ public class Model {
         }
     }
 
+    /**
+     * Method used to change currentPlayer
+     */
     public void changePlayer() {
         // Empty temporary poker hands (which have been saved) for current player
         emptyPokerHands();
@@ -339,6 +407,12 @@ public class Model {
         }
     }
 
+    /**
+     * Method used to determine where to set score
+     *
+     * @param m Uses value from IsPoker()
+     * @see isPoker()
+     */
     // Chosing where to add score
     public void setScore(int m) {
         // Disabled all scoreButtons
@@ -351,12 +425,18 @@ public class Model {
         view.getLabel().setText(String.valueOf(currentPlayer.pokerHands[m]));
     }
 
+    /**
+     * Method used to show the score
+     */
     public void showScore() {
         for (int i = 0; i < currentPlayer.savedPokerHands.length; i++) {
             System.out.println("Hand " + i + ": " + currentPlayer.savedPokerHands[i]);
         }
     }
 
+    /**
+     * Method used to display the score for every box
+     */
     // Display score for each number or poker hand (in boxes)
     public void displayScore() {
         int index = 0;
@@ -372,6 +452,9 @@ public class Model {
         }
     }
 
+    /**
+     * Method used to display the score form single numbers
+     */
     public void displayNumbersScore() {
         int index = 0;
         for (Player player : playerList) {
@@ -382,6 +465,9 @@ public class Model {
         }
     }
 
+    /**
+     * Method used to show bonus score
+     */
     public void displayBonus() {
         int index = 0;
         for (Player player : playerList) {
@@ -392,6 +478,9 @@ public class Model {
         }
     }
 
+    /**
+     * Method used to display total number score, including bonus
+     */
     public void displayNumbersTotalScore() {
         int index = 0;
         for (Player player : playerList) {
@@ -402,6 +491,9 @@ public class Model {
         }
     }
 
+    /**
+     * Method used to display the total score from poker hands
+     */
     public void displayPokerTotalScore() {
         int index = 0;
         for (Player player : playerList) {
@@ -412,6 +504,9 @@ public class Model {
         }
     }
 
+    /**
+     * Method used to display grand total, total number + pokerscore
+     */
     public void displayGrandTotal() {
         int index = 0;
         for (Player player : playerList) {
@@ -422,6 +517,9 @@ public class Model {
         }
     }
 
+    /**
+     * Method that displays all score variants
+     */
     public void displayAllScores() {
         displayNumbersScore();
         displayBonus();
@@ -430,6 +528,11 @@ public class Model {
         displayGrandTotal();
     }
 
+    /**
+     * Method that checks if top has been filled in forced play
+     *
+     * @return true if top scores aren't filled
+     */
     public boolean playedTop() {
         currentPlayer.playedTop = true;
         if (forcedPlay) {
@@ -443,6 +546,9 @@ public class Model {
         return currentPlayer.playedTop;
     }
 
+    /**
+     * Method used to check if a scoring hand is available
+     */
     public void isPoker() {
         //Check if ones
         if (score.isOne()) {
@@ -584,11 +690,19 @@ public class Model {
         }
     }
 
+    /**
+     * Method for showing the saved values of the dice
+     */
     public void showSavedDiceValues() {
         view.getLabel().setText(String.valueOf(currentPlayer.savedValuesDiceCast));
         System.out.println("Saved values: " + currentPlayer.savedValuesDiceCast);
     }
 
+    /**
+     * Method used to toggle the dice, toggles between saved/unsaved
+     *
+     * @param m The dice from the currentPlayer to be saved
+     */
     public void toggleDice(int m) {
         //Toggle button (enabled/disabled) and saves/removes dice value
         // If selected. Set selected to false

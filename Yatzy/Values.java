@@ -1,6 +1,7 @@
 package Yatzy;
 
 /**
+ * Class to determine value of labels in scoreboard
  *
  * @author Anneli, Marcus
  */

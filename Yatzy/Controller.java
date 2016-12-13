@@ -84,7 +84,8 @@ public class Controller {
 
 
     /**
-     * Method to add an ActionListener to dice
+     * Class that adds an actionListener to dice
+     * @author Bartek
      */
     public static class DiceListener implements ActionListener {
 
@@ -109,7 +110,8 @@ public class Controller {
     }
 
     /**
-     * Method to add an ActionListener for score-keeping
+     * Class that adds an ActionListener for score-keeping
+     * @author Bartek
      */
     public class ScoreListener implements ActionListener {
 

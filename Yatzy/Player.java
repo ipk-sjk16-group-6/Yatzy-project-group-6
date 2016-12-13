@@ -95,6 +95,7 @@ public class Player {
                 if (confirmExit == JOptionPane.YES_OPTION) {
                     System.exit(0);
                 }
+                else {this.playerName = "default";}
             }
         } while (playerName != null && !playerName.matches("[a-zA-Z]+"));
     }

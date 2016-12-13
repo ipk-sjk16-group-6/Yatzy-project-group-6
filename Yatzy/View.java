@@ -16,6 +16,9 @@ import java.util.ArrayList;
  * Creates and morphs JFrames, JPanels and JButtons
  *
  * @author Bartek, Max, Marcus, Anneli
+ * 
+ * inspiration taken from
+ * https://docs.oracle.com/javase/tutorial/java/javaOO/enum.html
  */
 public class View {
 
