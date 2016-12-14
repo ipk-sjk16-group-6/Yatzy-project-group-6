@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * @author Bartek, Max
  *
- * Model class
+ *         Model class
  */
 public class Model {
 
@@ -66,7 +66,7 @@ public class Model {
         System.out.println("Grandtotal: " + grandTotals);
         System.out.println("Winner index: " + winnerIndex);
 
-        JOptionPane.showMessageDialog(null, "Winner is: " + playerList.get(winnerIndex).getPlayerName() , "Winner", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Winner is: " + playerList.get(winnerIndex).getPlayerName(), "Winner", JOptionPane.PLAIN_MESSAGE);
     }
 
     /**
@@ -90,7 +90,6 @@ public class Model {
      * @param i used to determine which player is current
      */
     public void setPlayer(int i) {
-
         // Set player in Model
         currentPlayer = playerList.get(i);
         // Set player in Score
@@ -144,15 +143,6 @@ public class Model {
             }
             System.out.println("Show values: " + currentPlayer.savedValuesDiceCast);
         }
-    }
-
-    /**
-     * Method that shows the value of the dice
-     *
-     * @param i used to determine current dice used
-     */
-    public void showDiceValue(int i) {
-        view.getLabel().setText(String.valueOf(currentPlayer.dices[i].castValue));
     }
 
     /**
@@ -718,14 +708,6 @@ public class Model {
     }
 
     /**
-     * Method for showing the saved values of the dice
-     */
-    public void showSavedDiceValues() {
-        view.getLabel().setText(String.valueOf(currentPlayer.savedValuesDiceCast));
-        System.out.println("Saved values: " + currentPlayer.savedValuesDiceCast);
-    }
-
-    /**
      * Method used to toggle the dice, toggles between saved/unsaved
      *
      * @param m The dice from the currentPlayer to be saved
@@ -790,7 +772,7 @@ public class Model {
 
             choice = JOptionPane.showConfirmDialog(null,
                     ("Starting game with : "
-                    + numberOfPlayers + " players\nIs that correct?"),
+                            + numberOfPlayers + " players\nIs that correct?"),
                     "Confirm number of players",
                     JOptionPane.YES_NO_OPTION);
             switch (choice) {
@@ -873,8 +855,7 @@ public class Model {
     /**
      * Method for returning the playerList for use
      *
-     * @return ArrayList playerList containing the number of players created in
-     * fillPlayerList()
+     * @return ArrayList playerList containing the number of players created in fillPlayerList()
      * @see #fillPlayerList(int)
      */
     public ArrayList<Player> getPlayerList() {

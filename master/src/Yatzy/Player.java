@@ -7,11 +7,8 @@ import javax.swing.JOptionPane;
  * Class that handles creation and management of players
  *
  * @author max
- *
  */
 public class Player {
-
-    private String playerName;
 
     Dice[] dices;
     Vector savedValuesDiceCast;
@@ -20,7 +17,6 @@ public class Player {
     int[] savedPokerHands;
     int[] markedDicesArray;
     int currentRoll;
-
     int numberOnes;
     int numberTwos;
     int numberThrees;
@@ -36,17 +32,16 @@ public class Player {
     int fullHouse;
     int chance;
     int yatzy;
-
     boolean isAvailablePokerHand;
     boolean pokerHandsToBeMade;
     boolean madeHandsAvailableForSave;
     boolean playedTop;
-
     int numbersScore;
     int bonus;
     int numbersTotalScore;
     int pokerScore;
     int grandTotal;
+    private String playerName;
 
     /**
      * Constructor for Player
@@ -65,7 +60,6 @@ public class Player {
         for (int i = 0; i < savedPokerHands.length; i++) {
             savedPokerHands[i] = 100;
         }
-
     }
 
     /**
@@ -95,7 +89,9 @@ public class Player {
                 if (confirmExit == JOptionPane.YES_OPTION) {
                     System.exit(0);
                 }
-                else {this.playerName = "default";}
+                else {
+                    this.playerName = "default";
+                }
             }
         } while (playerName != null && !playerName.matches("[a-zA-Z]+"));
     }

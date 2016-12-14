@@ -8,9 +8,7 @@ package Yatzy;
 public class Values {
 
     public static String tellItLikeItIs(int value) {
-
         switch (value) {
-
             case 0:
                 return "Ones";
             case 1:
@@ -42,9 +40,7 @@ public class Values {
             case 14:
                 return "Yatzy";
             default:
-
         }
         return "something went wrong";
     }
-
 }

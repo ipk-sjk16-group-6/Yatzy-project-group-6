@@ -3,11 +3,10 @@ package Yatzy;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
-import java.util.*;
 
 /**
  * Class to control the elements of the program
- * 
+ *
  * @author Bartek, Max
  */
 public class Controller {
@@ -52,17 +51,14 @@ public class Controller {
         });
 
         view.getRollButton().addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 model.roll();
                 view.setImage();
             }
-
         });
 
         view.getZeroButton().addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 model.setHandsAvailableForZero();
@@ -71,38 +67,47 @@ public class Controller {
         });
 
         // Add listener to all dice buttons
-        for(int i = 0; i < view.diceButtons.length; i++) {
+        for (int i = 0; i < view.diceButtons.length; i++) {
             view.diceButtons[i].addActionListener(diceListener);
         }
 
         // Add listener to all dice buttons
-        for(int i = 0; i < view.scoreButtons.length; i++) {
+        for (int i = 0; i < view.scoreButtons.length; i++) {
             view.scoreButtons[i].addActionListener(scoreListener);
         }
-
     }
 
+    public static void main(String[] arg) {
+        try {
+            // select Look and Feel
+            UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
+            // start application
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        Controller controller = new Controller();
+    }
 
     /**
      * Class that adds an actionListener to dice
+     *
      * @author Bartek
      */
     public static class DiceListener implements ActionListener {
 
-         View view;
-         Model model;
+        View view;
+        Model model;
 
-         public DiceListener(View view, Model model) {
-             this.view = view;
-             this.model = model;
-         }
+        public DiceListener(View view, Model model) {
+            this.view = view;
+            this.model = model;
+        }
 
         public void actionPerformed(ActionEvent e) {
-            for(int i = 0; i < view.diceButtons.length; i++) {
-                if(view.diceButtons[i].getModel().isEnabled()) {
+            for (int i = 0; i < view.diceButtons.length; i++) {
+                if (view.diceButtons[i].getModel().isEnabled()) {
                     if (e.getSource() == view.diceButtons[i]) {
                         model.toggleDice(i);
-                        model.showDiceValue(i);
                     }
                 }
             }
@@ -111,6 +116,7 @@ public class Controller {
 
     /**
      * Class that adds an ActionListener for score-keeping
+     *
      * @author Bartek
      */
     public class ScoreListener implements ActionListener {
@@ -124,8 +130,8 @@ public class Controller {
         }
 
         public void actionPerformed(ActionEvent e) {
-            for(int i = 0; i < view.scoreButtons.length; i++) {
-                if(view.scoreButtons[i].getModel().isEnabled()) {
+            for (int i = 0; i < view.scoreButtons.length; i++) {
+                if (view.scoreButtons[i].getModel().isEnabled()) {
                     if (e.getSource() == view.scoreButtons[i]) {
                         model.setScore(i);
                         model.showScore();
@@ -136,21 +142,5 @@ public class Controller {
                 }
             }
         }
-
-    }
-
-    public static void main(String[] arg) {
-        try {
-            // select Look and Feel
-            UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
-
-            // start application
-            // start application
-        }
-        catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-        Controller controller = new Controller();
     }
 }

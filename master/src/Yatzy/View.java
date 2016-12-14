@@ -2,11 +2,9 @@ package Yatzy;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.MatteBorder;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -16,17 +14,11 @@ import java.util.ArrayList;
  * Creates and morphs JFrames, JPanels and JButtons
  *
  * @author Bartek, Max, Marcus, Anneli
- * 
- * inspiration taken from
- * https://docs.oracle.com/javase/tutorial/java/javaOO/enum.html
+ *
+ *         inspiration taken from https://docs.oracle.com/javase/tutorial/java/javaOO/enum.html
  */
 public class View {
 
-    private JFrame mainFrame;
-    private JLabel headerLabel;
-    private JLabel statusLabel;
-    private JPanel controlPanel;
-    JLabel label;
     JButton rollButton;
     JButton zeroButton;
     JButton diceButtons[];
@@ -40,6 +32,10 @@ public class View {
     JPanel south, north, east, west, center, centerE, centerW, centerS, centerWB, centerWT, one, centerEN, centerEast;
     JPanel centerEC;
     GridBagConstraints gc = new GridBagConstraints();
+    private JFrame mainFrame;
+    private JLabel headerLabel;
+    private JLabel statusLabel;
+    private JPanel controlPanel;
 
     public View() {
         createWindow();
@@ -185,23 +181,18 @@ public class View {
 
     public void createDiceButtons() {
         diceButtons = new JButton[5];
-
-        //mainFrame.add(new JPanel());	// blank - for formatting
         for (int i = 0; i < 5; i++) {
             diceButtons[i] = new JButton();
             diceButtons[i].setContentAreaFilled(false);
             diceButtons[i].setBorderPainted(false);
             controlPanel.add(diceButtons[i]);
         }
-
     }
 
-    //mainFrame.add(new JPanel());	// blank - for formatting
 
     public void createScoreButtons() {
         //Create scoreButtons and scoreBoxes
         scoreButtons = new JButton[15];
-
         for (int i = 0; i < scoreButtons.length; i++) {
             scoreButtons[i] = new JButton();
             //scoreButtons[i].setPreferredSize(new Dimension(200,40));
@@ -212,7 +203,6 @@ public class View {
 
             centerWT.add(scoreButtons[i]);
         }
-
         // Set names for scoreButtons
         scoreButtons[0].setText("Ones");
         scoreButtons[1].setText("Twos");
@@ -303,41 +293,34 @@ public class View {
     }
 
     public void createNewGameButton() {
-
         //create exit button
         newGameButton = new JButton("New Game");
         newGameButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
         Button.actionButton(newGameButton, new Color(30, 30, 30), new Color(200, 200, 200));
         centerWB.add(newGameButton);
-
     }
 
     public void createExitButton() {
-
         //create exit button
         exitButton = new JButton("  Exit game  ");
         exitButton.setFont(new Font("Tahoma", Font.PLAIN, 21));
         Button.actionButton(exitButton, new Color(30, 30, 30), new Color(200, 200, 200));
         centerWB.add(exitButton);
-
     }
 
     public void setImage() {
 
         for (int i = 0; i < 5; i++) {
-
             if (diceButtons[i].getModel().isSelected() == false) {
                 setImageToOriginal(diceButtons[i]);
             } else if (diceButtons[i].getModel().isSelected() == true) {
                 setImageToClicked(diceButtons[i]);
             }
-
         }
     }
 
     public void setImageToClicked(JButton diceButtons) {
         try {
-
             String number = diceButtons.getText();
             Image img = ImageIO.read(getClass().getResource("/images/dice-" + number + "-clicked" + ".png"));
             diceButtons.setIcon(new ImageIcon(img));
@@ -354,10 +337,6 @@ public class View {
         }
     }
 
-    JLabel getLabel() {
-        return label;
-    }
-
     JButton getRollButton() {
         return rollButton;
     }
@@ -367,8 +346,6 @@ public class View {
     }
 
     JButton getDiceButton(int i) {
-
         return diceButtons[i];
     }
-
 }

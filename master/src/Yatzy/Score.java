@@ -34,7 +34,6 @@ public class Score {
      * @param currentPlayer Assigns a scoreTable to a player
      */
     public Score(Player currentPlayer) {
-
         this.currentPlayer = currentPlayer;
     }
 
@@ -474,5 +473,4 @@ public class Score {
         currentPlayer.grandTotal += currentPlayer.bonus;
         return currentPlayer.grandTotal;
     }
-
 }
