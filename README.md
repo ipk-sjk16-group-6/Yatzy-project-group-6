@@ -1,21 +1,13 @@
 # Yatzy-project-group-6
 Group project for group 6, collaboration between sjk16 and ipk16
 
-## First Merge 05/12/16
+Yatzhee game for 1-6 players using the Java Swing collection.
 
-Working playerclass fairly done.
-In current version creates a dynamic playerlist and adds player 1-6 in index 0-5.
+Game uses the JTattoo look and feel.
+For optimal experience please install JTattoo.
 
-Implementation:
+You can find it here: http://www.jtattoo.net/downloads/JTattoo-1.6.11.jar
 
-In class Player:
-Use setPlayerName() to prompt for name input, use getPlayerName() to get the name.
-
-In class Model:
-use setNumberOfPlayers() to create 1-6 objects of class Player
-
-use getNumberOfPlayers() to get a int containing the number of players created
-
-use fillPlayerList() to create a dynamic list filled with created players
-
-creation is currently handled in Controller constructor
+Install instruction:
+paste the file provided in your JRE extension folder
+i.e C:\Program Files\Java\jre1.8.0_101\lib\ext
