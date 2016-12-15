@@ -2,12 +2,13 @@ package Yatzy;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.*;
 
 /**
+ * Class handling the Model of MVC principle
+ *
  * @author Bartek, Max
  *
- * Model class
  */
 public class Model {
 
@@ -16,6 +17,7 @@ public class Model {
     Player currentPlayer;
     int counter = 0;
     int round;
+    int gameRound;
     boolean forcedPlay;
 
     private int numberOfPlayers;
@@ -50,8 +52,27 @@ public class Model {
         currentPlayer.createDices();
         // If currenRoll = 0, then buttons are disabled
         showValueDiceButtons();
-        JOptionPane.showMessageDialog(null, "player " + currentPlayer.getPlayerName()
+        JOptionPane.showMessageDialog(null, "Player " + currentPlayer.getPlayerName()
                 + " it's your turn", "Who's up?", JOptionPane.PLAIN_MESSAGE);
+        // If it a renewed game, then we must enable rollButton
+        view.rollButton.setEnabled(true);
+        gameRound = 1;
+    }
+
+    /**
+     * Method to determine the winner
+     */
+    public void winnerIs() {
+        ArrayList<Integer> grandTotals = new ArrayList<>();
+        for (Player player : playerList) {
+            grandTotals.add(player.grandTotal);
+        }
+        int winner = Collections.max(grandTotals);
+        int winnerIndex = grandTotals.indexOf(winner);
+        System.out.println("Grandtotal: " + grandTotals);
+        System.out.println("Winner index: " + winnerIndex);
+
+        JOptionPane.showMessageDialog(null, "Winner is: " + playerList.get(winnerIndex).getPlayerName(), "Winner", JOptionPane.PLAIN_MESSAGE);
     }
 
     /**
@@ -75,7 +96,6 @@ public class Model {
      * @param i used to determine which player is current
      */
     public void setPlayer(int i) {
-
         // Set player in Model
         currentPlayer = playerList.get(i);
         // Set player in Score
@@ -96,7 +116,7 @@ public class Model {
             System.out.println("Round: " + round);
         } while (currentPlayer.pokerHandsToBeMade == false && round < numberOfPlayers);
         System.out.println("Playing..");
-        JOptionPane.showMessageDialog(null, "player " + currentPlayer.getPlayerName()
+        JOptionPane.showMessageDialog(null, "Player " + currentPlayer.getPlayerName()
                 + " it's your turn", "Who's up?", JOptionPane.PLAIN_MESSAGE);
     }
 
@@ -132,15 +152,6 @@ public class Model {
     }
 
     /**
-     * Method that shows the value of the dice
-     *
-     * @param i used to determine current dice used
-     */
-    public void showDiceValue(int i) {
-        view.getLabel().setText(String.valueOf(currentPlayer.dices[i].castValue));
-    }
-
-    /**
      * Method that enables Dice for use
      */
     public void enableDiceButtons() {
@@ -168,9 +179,9 @@ public class Model {
      */
     public void addDiceValues() {
         if (currentPlayer.dices.length > 0) {
-            for (int i = 0; i < currentPlayer.dices.length; i++) {
-                if (currentPlayer.dices[i].castValue != 0) {
-                    currentPlayer.savedValuesDiceCast.add(currentPlayer.dices[i].castValue);
+            for (Dice dice : currentPlayer.dices) {
+                if (dice.castValue != 0) {
+                    currentPlayer.savedValuesDiceCast.add(dice.castValue);
                 }
             }
         }
@@ -231,8 +242,8 @@ public class Model {
      * Method that resets highlighted score buttons
      */
     public void resetScoreButtons() {
-        for (int i = 0; i < view.scoreButtons.length; i++) {
-            view.scoreButtons[i].getModel().setEnabled(false);
+        for (JButton scoreButton : view.scoreButtons) {
+            scoreButton.getModel().setEnabled(false);
         }
     }
 
@@ -254,6 +265,7 @@ public class Model {
             System.out.println("Enabled dice buttons");
             currentPlayer.castDices();
             showValueDiceButtons();
+            displayCurrentRoll();
             addDiceValues();
             playedTop();
             isPoker();
@@ -266,6 +278,7 @@ public class Model {
             emptyMarkedDices();
             currentPlayer.castDices();
             showValueDiceButtons();
+            displayCurrentRoll();
             copyMarkedArrayToList();
             addDiceValues();
             System.out.println("Saved values: " + currentPlayer.savedValuesDiceCast);
@@ -273,9 +286,24 @@ public class Model {
             isPoker();
             madeHandsAvailableForSave();
             if (currentPlayer.currentRoll == 3) {
-                toggleOkButton();
+                displayCurrentRoll();
+                toggleRollButton();
             }
         }
+    }
+
+    /**
+     * Method to show which roll the player is currently on
+     */
+    public void displayCurrentRoll() {
+        view.rollLabel.setText("Roll: " + currentPlayer.currentRoll);
+    }
+
+    /**
+     * Method to hide current roll
+     */
+    public void hideCurrentRoll() {
+        view.rollLabel.setText("");
     }
 
     /**
@@ -316,12 +344,12 @@ public class Model {
      * Method used if you want to set a score to zero
      */
     public void setHandsAvailableForZero() {
-        toggleOkButton();
+        toggleRollButton();
         toggleZeroButton();
         System.out.print("Set hands to zero!");
         // Disable all score buttons
-        for (int i = 0; i < view.scoreButtons.length; i++) {
-            view.scoreButtons[i].getModel().setEnabled(false);
+        for (JButton scoreButton : view.scoreButtons) {
+            scoreButton.getModel().setEnabled(false);
             System.out.println("Disable button");
         }
         // Enable score buttons for which poker hands have not been set
@@ -339,7 +367,7 @@ public class Model {
      *
      * @param m Uses value from IsPoker()
      * @return true if pokerScore is available
-     * @see isPoker()
+     * @see #isPoker()
      */
     public boolean isAvailablePokerHand(int m) {
         currentPlayer.isAvailablePokerHand = false;
@@ -352,7 +380,7 @@ public class Model {
     /**
      * Method used to toggle roll button
      */
-    public void toggleOkButton() {
+    public void toggleRollButton() {
         if (view.rollButton.getModel().isEnabled()) {
             view.rollButton.setEnabled(false);
         } else {
@@ -372,11 +400,18 @@ public class Model {
     }
 
     /**
-     * Method used to change currentPlayer
+     * Method used to change currentPlayer If switch is unavailable, game is
+     * over
      */
     public void changePlayer() {
         // Empty temporary poker hands (which have been saved) for current player
         emptyPokerHands();
+        gameRound++;
+        System.out.println("Gameround : " + gameRound);
+        if (gameRound > 15 && numberOfPlayers == 1) {
+            JOptionPane.showMessageDialog(null, "Game is over, good job! ",
+                    "Game Over", JOptionPane.PLAIN_MESSAGE);
+        }
 
         // Check player if hands still can be made, go to next player otherwise
         if (numberOfPlayers > 1) {
@@ -385,7 +420,7 @@ public class Model {
         // If player switch
         if (round < numberOfPlayers) {
             if (view.rollButton.getModel().isEnabled() == false) {
-                toggleOkButton();
+                toggleRollButton();
             }
             if (view.zeroButton.getModel().isEnabled() == false) {
                 toggleZeroButton();
@@ -398,12 +433,13 @@ public class Model {
         } // If player not switch (means all hands saved for every player)
         else {
             if (view.rollButton.getModel().isEnabled() == true) {
-                toggleOkButton();
+                toggleRollButton();
             }
             if (view.zeroButton.getModel().isEnabled() == true) {
                 toggleZeroButton();
             }
             System.out.println("GAME ENDED!");
+            winnerIs();
         }
     }
 
@@ -411,22 +447,22 @@ public class Model {
      * Method used to determine where to set score
      *
      * @param m Uses value from IsPoker()
-     * @see isPoker()
+     * @see #isPoker()
      */
     // Chosing where to add score
     public void setScore(int m) {
         // Disabled all scoreButtons
-        for (int i = 0; i < view.scoreButtons.length; i++) {
-            view.scoreButtons[i].getModel().setEnabled(false);
+        for (JButton scoreButton : view.scoreButtons) {
+            scoreButton.getModel().setEnabled(false);
         }
         // Save pokerhand
         currentPlayer.savedPokerHands[m] = currentPlayer.pokerHands[m];
-        // Display chosen value
-        view.getLabel().setText(String.valueOf(currentPlayer.pokerHands[m]));
+        // Hide current roll value
+        hideCurrentRoll();
     }
 
     /**
-     * Method used to show the score
+     * Method used to show the score used for error checking
      */
     public void showScore() {
         for (int i = 0; i < currentPlayer.savedPokerHands.length; i++) {
@@ -531,7 +567,7 @@ public class Model {
     /**
      * Method that checks if top has been filled in forced play
      *
-     * @return true if top scores aren't filled
+     * @return false if top scores aren't filled
      */
     public boolean playedTop() {
         currentPlayer.playedTop = true;
@@ -691,14 +727,6 @@ public class Model {
     }
 
     /**
-     * Method for showing the saved values of the dice
-     */
-    public void showSavedDiceValues() {
-        view.getLabel().setText(String.valueOf(currentPlayer.savedValuesDiceCast));
-        System.out.println("Saved values: " + currentPlayer.savedValuesDiceCast);
-    }
-
-    /**
      * Method used to toggle the dice, toggles between saved/unsaved
      *
      * @param m The dice from the currentPlayer to be saved
@@ -722,6 +750,10 @@ public class Model {
         }
     }
 
+    /**
+     * Method to show which dice are marked, printed to console used for error
+     * checking
+     */
     public void displayMarked() {
         for (int i = 0; i < currentPlayer.markedDicesArray.length; i++) {
             System.out.println("Marked " + i + ": " + currentPlayer.markedDicesArray[i]);
@@ -784,7 +816,7 @@ public class Model {
      * Method for setting playMode. Asks if player wants to do forced play or
      * free play.
      *
-     * @see newGame()
+     * @see #newGame()
      */
     public void playMode() {
         int choice;

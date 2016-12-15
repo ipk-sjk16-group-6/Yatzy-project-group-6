@@ -22,14 +22,13 @@ public class Dice {
 
     /**
      * Method for throwing dice
+     *
      * @return Value used to get value of dice
      */
     int throwDice() {
         Random generator = new Random();
         int rnd = generator.nextInt(6) + 1;
-
         castValue = rnd;
         return castValue;
     }
-
 }

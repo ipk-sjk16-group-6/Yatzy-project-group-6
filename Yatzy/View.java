@@ -3,10 +3,10 @@ package Yatzy;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
+
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -16,17 +16,13 @@ import java.util.ArrayList;
  * Creates and morphs JFrames, JPanels and JButtons
  *
  * @author Bartek, Max, Marcus, Anneli
- * 
- * inspiration taken from
- * https://docs.oracle.com/javase/tutorial/java/javaOO/enum.html
+ *
+ *         inspiration taken from https://docs.oracle.com/javase/tutorial/java/javaOO/enum.html
+ *        
+ *        
  */
 public class View {
 
-    private JFrame mainFrame;
-    private JLabel headerLabel;
-    private JLabel statusLabel;
-    private JPanel controlPanel;
-    JLabel label;
     JButton rollButton;
     JButton zeroButton;
     JButton diceButtons[];
@@ -36,9 +32,15 @@ public class View {
     JLabel boxes[][][];
     JLabel numbersTotalBoxes[][][];
     JLabel pokerTotalBoxes[][][];
-    JPanel south, north, east, west, center, centerE, centerW, centerS, centerWB, centerWT, one, centerEN, centerEast;
+    JLabel rollLabel;
+    JPanel south, north, east, west, center, centerE, centerW, centerS,
+    centerWB, centerWT, one, centerEN, centerEast;
     JPanel centerEC;
     GridBagConstraints gc = new GridBagConstraints();
+    private JFrame mainFrame;
+    private JLabel headerLabel;
+    private JLabel statusLabel;
+    private JPanel controlPanel;
 
     public View() {
         createWindow();
@@ -48,6 +50,10 @@ public class View {
         createExitButton();
 
     }
+    
+    /**
+	 * Creates the frame and layouts of the game.
+	 */
 
     public void createWindow() {
         // Create JFrame (container window)
@@ -60,7 +66,7 @@ public class View {
             e.printStackTrace();
         }
 
-        mainFrame.setSize(800, 995);
+        mainFrame.setSize(900, 1000);
         mainFrame.setLayout(new BorderLayout());
 
         mainFrame.addWindowListener(new WindowAdapter() {
@@ -102,34 +108,37 @@ public class View {
         west.setBackground(new Color(47, 46, 46));
 
         center.setLayout(new BorderLayout());
-        center.setBackground(new Color(255, 255, 255));
+        center.setBackground(new Color(47,47,47));
 
         centerS.setLayout(new GridLayout(5, 1));
         centerS.setBackground(new Color(0, 0, 0));
 
         centerW.setLayout(new GridBagLayout());
-
-        gc.gridx = 0;
+        centerW.setBorder(new MatteBorder(30, 0, 20, 20, new Color(47,47,47)));
+        gc.anchor = GridBagConstraints.NORTH;
+        gc.gridx = 0; 
         gc.gridy = -1;
 
         gc.weighty = 50;
+        
+       
 
-        centerW.setBackground(new Color(40, 40, 40));
+        centerW.setBackground(new Color(47, 47, 47));
 
         centerWB.setLayout(new GridLayout(2, 1));
-        centerWB.setBackground(new Color(0, 0, 0));
-        //centerWB.setPreferredSize(new Dimension(200,300));
+        centerWB.setBackground(new Color(47, 47, 47));
+        
 
         centerWT.setLayout(new GridLayout(15, 1));
         centerWT.setBackground(new Color(47, 46, 47));
 
         centerEN.setLayout(new GridLayout(1, 6));
         centerEN.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-        centerEN.setBackground(new Color(0, 0, 0));
+        centerEN.setBackground(new Color(47, 47, 47));
 
         centerEC.setLayout(new GridLayout(1, 6));
         centerEC.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-        centerEC.setBackground(new Color(0, 0, 0));
+        centerEC.setBackground(new Color(47, 47, 47));
 
         centerEast.setLayout(new BorderLayout());
         centerEast.setBackground(new Color(0, 0, 0));
@@ -145,8 +154,10 @@ public class View {
         headerLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         statusLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 
-        label = new JLabel("Label is here");
-        //label.setVisible(true);
+        // Add label to display current roll
+        rollLabel = new JLabel();
+        rollLabel.setVisible(true);
+        controlPanel.add(rollLabel);
 
         // Create button and add to JPanel
         rollButton = new JButton("Roll Dice");
@@ -156,7 +167,7 @@ public class View {
         zeroButton = new JButton("Zero");
         Button.actionButton(zeroButton, new Color(188, 188, 188), new Color(0, 0, 0));
         south.add(zeroButton);
-
+        
         // Add JPanel and JLabels to JFrame
         mainFrame.add(controlPanel, BorderLayout.NORTH);
         mainFrame.add(south, BorderLayout.SOUTH);
@@ -170,38 +181,37 @@ public class View {
 
         centerW.add(centerWT, gc);
         gc.anchor = GridBagConstraints.SOUTH;
+        
         centerW.add(centerWB, gc);
 
-        //mainFrame.add(headerLabel);
-        //mainFrame.add(statusLabel);
-        //mainFrame.add(label);
         mainFrame.setVisible(true);
         mainFrame.setLocationRelativeTo(null);
 
     }
+    
+    /**
+    * Creates containers for the dices of the game 
+    */
 
     public void createDiceButtons() {
         diceButtons = new JButton[5];
-
-        //mainFrame.add(new JPanel());	// blank - for formatting
         for (int i = 0; i < 5; i++) {
             diceButtons[i] = new JButton();
             diceButtons[i].setContentAreaFilled(false);
             diceButtons[i].setBorderPainted(false);
             controlPanel.add(diceButtons[i]);
         }
-
     }
-
-    //mainFrame.add(new JPanel());	// blank - for formatting
+    
+    /**
+     *Creates containers for the scorebuttons of the game 
+     */
 
     public void createScoreButtons() {
         //Create scoreButtons and scoreBoxes
         scoreButtons = new JButton[15];
-
         for (int i = 0; i < scoreButtons.length; i++) {
             scoreButtons[i] = new JButton();
-            //scoreButtons[i].setPreferredSize(new Dimension(200,40));
             scoreButtons[i].setFont(new Font("Tahoma", Font.PLAIN, 20));
             scoreButtons[i].setBackground(new Color(0, 204, 0));
             scoreButtons[i].putClientProperty("id", i);
@@ -209,7 +219,6 @@ public class View {
 
             centerWT.add(scoreButtons[i]);
         }
-
         // Set names for scoreButtons
         scoreButtons[0].setText("Ones");
         scoreButtons[1].setText("Twos");
@@ -219,15 +228,21 @@ public class View {
         scoreButtons[5].setText("Sixes");
         scoreButtons[6].setText("One Pair");
         scoreButtons[7].setText("Two Pair");
-        scoreButtons[8].setText("Three of a kind");
-        scoreButtons[9].setText("Four of a kind");
+        scoreButtons[8].setText("Three of a Kind");
+        scoreButtons[9].setText("Four of a Kind");
         scoreButtons[10].setText("Small Straight");
         scoreButtons[11].setText("Large Straight");
         scoreButtons[12].setText("Full House");
         scoreButtons[13].setText("Chance");
-        scoreButtons[14].setText("Yatzy");
+        scoreButtons[14].setText("Yahtzee");
     }
-
+    
+    /**
+     * Creates containers for the scoreboard. 
+     * @param numberOfPlayers  number of players in the game 
+     * @param playerlist  playerlist with all playernames within an arraylist 
+     */
+    
     public void createBoxes(int numberOfPlayers, ArrayList<Player> playerlist) {
         // Create boxes
         boxes = new JLabel[15][2][numberOfPlayers];
@@ -242,7 +257,8 @@ public class View {
         for (int j = 0; j < numberOfPlayers; j++) {
             one = new JPanel();
             one.setLayout(new GridLayout(21, 1));
-            one.setBackground(new Color(80 + ((j * 10)), 80 + (j * 10), 80 + (j * 10)));
+            one.setBackground(new Color(80 + ((j * 5)), 80 + (j * 5), 80 + (j * 5)));
+            one.setBorder(new MatteBorder(0, 0,20,20, new Color(47,47,47)));
 
             String name = playerlist.get(j).getPlayerName();
             Label namelabel = new Label(name);
@@ -267,74 +283,85 @@ public class View {
             for (int i = 0; i < numbersTotalBoxes.length; i++) {
                 l2 = new JLabel();
                 l3 = new JLabel();
-                //l2.setBorder(new MatteBorder(2, 2, 2, 2, Color.BLACK));
-                //l3.setBorder(new MatteBorder(0, 1, 1, 1, Color.BLACK));
+               
                 numbersTotalBoxes[i][0][j] = l2;
                 numbersTotalBoxes[i][1][j] = l3;
                 one.add(numbersTotalBoxes[i][0][j]);
                 one.add(numbersTotalBoxes[i][1][j]);
             }
 
-            numbersTotalBoxes[0][0][j].setText("Numbers Score");
-            numbersTotalBoxes[1][0][j].setText("Bonus");
-            numbersTotalBoxes[2][0][j].setText("Total Numbers Score");
+            numbersTotalBoxes[0][0][j].setText(" Numbers Score");
+            numbersTotalBoxes[1][0][j].setText(" Bonus");
+            numbersTotalBoxes[2][0][j].setText(" Total Numbers Score");
 
             JLabel l4;
             JLabel l5;
             for (int i = 0; i < pokerTotalBoxes.length; i++) {
                 l4 = new JLabel();
                 l5 = new JLabel();
-                //l4.setBorder(new MatteBorder(2, 2, 2, 2, Color.BLACK));
-                //l5.setBorder(new MatteBorder(0, 1, 1, 1, Color.BLACK));
+               
                 pokerTotalBoxes[i][0][j] = l4;
                 pokerTotalBoxes[i][1][j] = l5;
                 one.add(pokerTotalBoxes[i][0][j]);
                 one.add(pokerTotalBoxes[i][1][j]);
             }
-            pokerTotalBoxes[0][0][j].setText("Poker Score");
-            pokerTotalBoxes[1][0][j].setText("Grand Total");
+            pokerTotalBoxes[0][0][j].setText(" Poker Score");
+            pokerTotalBoxes[1][0][j].setText(" Grand Total");
 
             centerEC.add(one, j);
 
         }
     }
+    
+    /**
+     * Creates a button that starts a new Game 
+     */
 
     public void createNewGameButton() {
-
         //create exit button
         newGameButton = new JButton("New Game");
         newGameButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
         Button.actionButton(newGameButton, new Color(30, 30, 30), new Color(200, 200, 200));
         centerWB.add(newGameButton);
-
     }
+    
+    /**
+    * Creates a button that exits the game  
+    */
 
     public void createExitButton() {
-
         //create exit button
         exitButton = new JButton("  Exit game  ");
         exitButton.setFont(new Font("Tahoma", Font.PLAIN, 21));
         Button.actionButton(exitButton, new Color(30, 30, 30), new Color(200, 200, 200));
         centerWB.add(exitButton);
-
     }
 
+    /**
+     * Switches the images in a group of Jbuttons
+     * 
+     */
+    
     public void setImage() {
 
         for (int i = 0; i < 5; i++) {
-
             if (diceButtons[i].getModel().isSelected() == false) {
                 setImageToOriginal(diceButtons[i]);
             } else if (diceButtons[i].getModel().isSelected() == true) {
                 setImageToClicked(diceButtons[i]);
             }
-
         }
     }
+    
+    /**
+    * This method gets the text from a Jbutton, and then returns an image depending on the text.  
+    *  
+    * @param diceButtons JButton containing the dices of the game 
+    * @exception NullPointerException  if images are not found 
+    */
 
     public void setImageToClicked(JButton diceButtons) {
         try {
-
             String number = diceButtons.getText();
             Image img = ImageIO.read(getClass().getResource("/images/dice-" + number + "-clicked" + ".png"));
             diceButtons.setIcon(new ImageIcon(img));
@@ -342,6 +369,12 @@ public class View {
         }
     }
 
+    /**
+     * This method gets the text from a Jbutton, and then returns an image depending on the text.  
+     *  
+     * @param diceButtons JButton containing the dices of the game 
+     * @exception NullPointerException  if images are not found 
+     */
     public void setImageToOriginal(JButton diceButtons) {
         try {
             String number = diceButtons.getText();
@@ -349,10 +382,6 @@ public class View {
             diceButtons.setIcon(new ImageIcon(img));
         } catch (IOException ex) {
         }
-    }
-
-    JLabel getLabel() {
-        return label;
     }
 
     JButton getRollButton() {
@@ -364,8 +393,6 @@ public class View {
     }
 
     JButton getDiceButton(int i) {
-
         return diceButtons[i];
     }
-
 }
