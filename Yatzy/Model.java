@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * @author Bartek, Max
  *
- *         Model class
+ * Model class
  */
 public class Model {
 
@@ -56,6 +56,9 @@ public class Model {
         view.rollButton.setEnabled(true);
     }
 
+    /**
+     * Method to determine the winner
+     */
     public void winnerIs() {
         ArrayList<Integer> grandTotals = new ArrayList<>();
         for (Player player : playerList) {
@@ -173,9 +176,9 @@ public class Model {
      */
     public void addDiceValues() {
         if (currentPlayer.dices.length > 0) {
-            for (int i = 0; i < currentPlayer.dices.length; i++) {
-                if (currentPlayer.dices[i].castValue != 0) {
-                    currentPlayer.savedValuesDiceCast.add(currentPlayer.dices[i].castValue);
+            for (Dice dice : currentPlayer.dices) {
+                if (dice.castValue != 0) {
+                    currentPlayer.savedValuesDiceCast.add(dice.castValue);
                 }
             }
         }
@@ -236,8 +239,8 @@ public class Model {
      * Method that resets highlighted score buttons
      */
     public void resetScoreButtons() {
-        for (int i = 0; i < view.scoreButtons.length; i++) {
-            view.scoreButtons[i].getModel().setEnabled(false);
+        for (JButton scoreButton : view.scoreButtons) {
+            scoreButton.getModel().setEnabled(false);
         }
     }
 
@@ -286,11 +289,16 @@ public class Model {
         }
     }
 
+    /**
+     * Method to show which roll the player is currently on
+     */
     public void displayCurrentRoll() {
-    	view.rollLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
         view.rollLabel.setText("Roll: " + currentPlayer.currentRoll);
     }
 
+    /**
+     * Method to hide current roll
+     */
     public void hideCurrentRoll() {
         view.rollLabel.setText("");
     }
@@ -337,8 +345,8 @@ public class Model {
         toggleZeroButton();
         System.out.print("Set hands to zero!");
         // Disable all score buttons
-        for (int i = 0; i < view.scoreButtons.length; i++) {
-            view.scoreButtons[i].getModel().setEnabled(false);
+        for (JButton scoreButton : view.scoreButtons) {
+            scoreButton.getModel().setEnabled(false);
             System.out.println("Disable button");
         }
         // Enable score buttons for which poker hands have not been set
@@ -390,6 +398,7 @@ public class Model {
 
     /**
      * Method used to change currentPlayer
+     * If switch is unavailable, game is over
      */
     public void changePlayer() {
         // Empty temporary poker hands (which have been saved) for current player
@@ -434,8 +443,8 @@ public class Model {
     // Chosing where to add score
     public void setScore(int m) {
         // Disabled all scoreButtons
-        for (int i = 0; i < view.scoreButtons.length; i++) {
-            view.scoreButtons[i].getModel().setEnabled(false);
+        for (JButton scoreButton : view.scoreButtons) {
+            scoreButton.getModel().setEnabled(false);
         }
         // Save pokerhand
         currentPlayer.savedPokerHands[m] = currentPlayer.pokerHands[m];
@@ -444,7 +453,7 @@ public class Model {
     }
 
     /**
-     * Method used to show the score
+     * Method used to show the score used for error checking
      */
     public void showScore() {
         for (int i = 0; i < currentPlayer.savedPokerHands.length; i++) {
@@ -549,7 +558,7 @@ public class Model {
     /**
      * Method that checks if top has been filled in forced play
      *
-     * @return true if top scores aren't filled
+     * @return false if top scores aren't filled
      */
     public boolean playedTop() {
         currentPlayer.playedTop = true;
@@ -732,6 +741,9 @@ public class Model {
         }
     }
 
+    /**
+     * Method to show which dice are marked, printed to console used for error checking
+     */
     public void displayMarked() {
         for (int i = 0; i < currentPlayer.markedDicesArray.length; i++) {
             System.out.println("Marked " + i + ": " + currentPlayer.markedDicesArray[i]);
@@ -773,7 +785,7 @@ public class Model {
 
             choice = JOptionPane.showConfirmDialog(null,
                     ("Starting game with : "
-                            + numberOfPlayers + " players\nIs that correct?"),
+                    + numberOfPlayers + " players\nIs that correct?"),
                     "Confirm number of players",
                     JOptionPane.YES_NO_OPTION);
             switch (choice) {
@@ -856,7 +868,8 @@ public class Model {
     /**
      * Method for returning the playerList for use
      *
-     * @return ArrayList playerList containing the number of players created in fillPlayerList()
+     * @return ArrayList playerList containing the number of players created in
+     * fillPlayerList()
      * @see #fillPlayerList(int)
      */
     public ArrayList<Player> getPlayerList() {

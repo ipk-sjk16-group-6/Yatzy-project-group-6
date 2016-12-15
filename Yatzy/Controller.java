@@ -119,7 +119,7 @@ public class Controller {
      *
      * @author Bartek
      */
-    public class ScoreListener implements ActionListener {
+    public static class ScoreListener implements ActionListener {
 
         View view;
         Model model;
