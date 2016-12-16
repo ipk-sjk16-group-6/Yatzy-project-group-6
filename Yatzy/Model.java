@@ -257,6 +257,7 @@ public class Model {
         currentPlayer.currentRoll++;
         System.out.println("Current roll: " + currentPlayer.currentRoll);
         if (currentPlayer.currentRoll == 1) {
+            roll();
             resetScoreButtons();
             emptySavedValuesDiceCast();
             emptyMarkedDices();
