@@ -38,7 +38,7 @@ public class Controller {
             int confirmExit = JOptionPane.showConfirmDialog(null,
                     "Are you sure you want to start new game?", null, JOptionPane.YES_NO_OPTION);
             if (confirmExit == JOptionPane.YES_OPTION) {
-                model.newGame();
+                model.restartApplication();
             }
         });
 

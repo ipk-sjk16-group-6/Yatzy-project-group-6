@@ -2,6 +2,7 @@ package Yatzy;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -887,4 +888,16 @@ public class Model {
         return playerList;
     }
 
+    /**
+     * Restarts the application.The application must be an executable .jar file
+     * with the name Yahtzee.jar for this method to work.
+     */
+    public void restartApplication() {
+
+        try {
+            Runtime.getRuntime().exec("java -jar Yahtzee.jar");
+            System.exit(0);
+        } catch (IOException e) {
+        }
+    }
 }
